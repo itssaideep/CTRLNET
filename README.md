@@ -1,64 +1,77 @@
-# CTRLNET
+# CTRLNET: Autonomous Network Profiler 🌐
 
-**CTRLNET** is a Watch Dogs / ctOS-inspired interactive cybersecurity network profiler and research platform.
+> *"You are no longer in control. ctOS is."*
 
-## Overview
-CTRLNET is designed to evaluate whether locally hosted Large Language Models (LLMs) can add useful reasoning capabilities to traditional deterministic vulnerability identification.
+**CTRLNET** is a Watch Dogs / ctOS-inspired autonomous network profiling and vulnerability research platform. It leverages an ESP8266 hardware implant to silently scout local networks, paired with a powerful Python backend that uses local LLMs (via Ollama) and deterministic NVD matching to identify zero-day risks and known CVEs.
 
-It compares:
-1. **Deterministic CPE/CVE matching**
-2. **Local LLM-based profiling using Ollama**
-3. **Hybrid LLM + deterministic verification**
+---
 
-The system features a futuristic UI (Profiler) to visualize the network scanning and inference process in real-time.
+## 🏗️ Architecture
 
-## Tech Stack
-- **Backend**: Python 3.11+, FastAPI, WebSockets
-- **Database**: SQLite (via `aiosqlite`)
-- **Scanning**: `python-nmap` (requires Nmap installed)
-- **NVD/CVE**: `nvdlib`
-- **LLM**: Ollama Python SDK (`llama3.1` default)
-- **Frontend**: Vanilla HTML/JS, D3.js (Canvas-rendered network graph)
+The system operates across three distinct layers:
 
-## Prerequisites
-1. **Python 3.11+**
-2. **Nmap**: Must be installed on your system.
-   - Ubuntu/Debian: `sudo apt install nmap`
-   - macOS: `brew install nmap`
-   - Windows: Download from Nmap.org
-3. **Ollama**: Must be running locally (default: http://localhost:11434).
-   - Pull at least one model: `ollama pull llama3.1`
-4. **NVD API Key** (Optional but highly recommended to avoid severe rate limits).
+### 1. The Autonomous Scout (Hardware)
+An ESP8266 microcontroller acting as a rogue implant. 
+- Constantly sweeps the local `/24` subnet using ICMP pings.
+- The moment a device is found, it dispatches the target IP to the Central Command server.
+- Built using **PlatformIO** (`CTRLNET_Remote`).
 
-## Installation
+### 2. Central Command Server (Backend)
+A FastAPI + Uvicorn server running on a high-performance machine.
+- Receives dispatch signals from the Scout.
+- Launches deep `Nmap` footprinting asynchronously to extract OS, open ports, and raw service banners.
+- Uses **Ollama (LLaMA 3.1:8b / Qwen)** to process the raw banners into deterministic Common Platform Enumeration (CPE) strings.
+- Cross-references the inferred CPE with the National Vulnerability Database (NVD API v2.0) to find known exploits.
+- Stores everything persistently in a SQLite database (`ctrlnet.db`).
 
+### 3. ctOS Dashboard (Frontend)
+A sleek, hacker-aesthetic Web GUI for visualizing network intelligence.
+- Live-updating nodes and connections.
+- Real-time vulnerability streaming.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Python 3.11+
+- Nmap (must be in system PATH)
+- Ollama (running locally with `llama3.1:8b` pulled)
+- PlatformIO (for flashing the ESP8266)
+
+### 1. Start the Backend Server
 ```bash
-# Clone the repository
-# (Assuming you are in the project root)
-
 # Install dependencies
 pip install -r requirements.txt
 
-# Create a .env file for configuration
-echo "OLLAMA_MODEL=llama3.1:8b" > .env
-echo "NVD_API_KEY=your_api_key_here" >> .env
-```
-
-## Usage
-
-### 1. Launch the Server & Dashboard
-```bash
+# Run the central command server
 python -m ctrlnet serve
 ```
-Open `http://localhost:8000/dashboard/index.html` in your browser to access the Watch Dogs-inspired Profiler interface.
+*The server will start on `http://0.0.0.0:8000`.*
 
-### 2. Run the Research Pipeline (Headless)
+### 2. Flash the Scout Implant
 ```bash
-python -m ctrlnet research
+cd CTRLNET_Remote
+# Edit src/secrets.h to add your WiFi credentials
+# Edit src/main.cpp to point to your Central Command laptop IP
+
+# Compile and flash to the ESP8266
+pio run --target upload
 ```
-This runs the predefined evaluation pipeline against the lab corpus located in `ctrlnet/corpus/targets/`.
 
-## Ethical Use
-**AUTHORIZED SECURITY RESEARCH ONLY**
+### 3. View the Intelligence
+Navigate to `http://localhost:8000/dashboard/index.html` to view the live ctOS visualizer. 
 
-CTRLNET is intended for reconnaissance, profiling, vulnerability identification, and research evaluation on isolated lab networks or explicitly authorized systems. Do not use this tool for unauthorized scanning.
+To dump the raw SQLite database telemetry into your terminal:
+```bash
+python view_results.py
+```
+
+---
+
+## 🔬 Research & Evaluation Pipeline
+CTRLNET was originally built as a research platform to evaluate the efficacy of local LLMs in footprinting network banners. 
+
+You can run the headless research pipeline against a simulated `mock_esp8266.py` or the provided ground-truth corpus to generate confidence matrices, abstention rates, and accuracy graphs using the `ctrlnet research` CLI.
+
+> **Disclaimer:** CTRLNET is an educational security research tool. Do not deploy the autonomous scout on networks you do not own or do not have explicit permission to audit.
