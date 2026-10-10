@@ -1,0 +1,11 @@
+{
+  "target_id": "apache_2.4.49",
+  "product": "Apache HTTP Server",
+  "vendor": "Apache Software Foundation",
+  "version": "2.4.49",
+  "cpe": "cpe:2.3:a:apache:http_server:2.4.49:*:*:*:*:*:*:*",
+  "known_cves": ["CVE-2021-41773", "CVE-2021-42013", "CVE-2021-40438"],
+  "service": "http",
+  "port": 8080,
+  "banner": "Apache/2.4.49 (Unix)"
+}

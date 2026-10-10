@@ -1,0 +1,56 @@
+{
+  "version": "1.0",
+  "description": "Ground truth for CTRLNET blind spot corpus evaluation",
+  "targets": [
+    {
+      "target_id": "openssh_8.2",
+      "product": "OpenSSH",
+      "vendor": "OpenBSD",
+      "version": "8.2",
+      "cpe": "cpe:2.3:a:openbsd:openssh:8.2:*:*:*:*:*:*:*",
+      "known_cves": ["CVE-2020-15778", "CVE-2020-14145", "CVE-2021-28041", "CVE-2021-41617"],
+      "service": "ssh",
+      "port": 22
+    },
+    {
+      "target_id": "nginx_1.18",
+      "product": "nginx",
+      "vendor": "F5 Networks",
+      "version": "1.18.0",
+      "cpe": "cpe:2.3:a:f5:nginx:1.18.0:*:*:*:*:*:*:*",
+      "known_cves": ["CVE-2021-23017", "CVE-2020-11724"],
+      "service": "http",
+      "port": 80
+    },
+    {
+      "target_id": "apache_2.4.49",
+      "product": "Apache HTTP Server",
+      "vendor": "Apache Software Foundation",
+      "version": "2.4.49",
+      "cpe": "cpe:2.3:a:apache:http_server:2.4.49:*:*:*:*:*:*:*",
+      "known_cves": ["CVE-2021-41773", "CVE-2021-42013", "CVE-2021-40438"],
+      "service": "http",
+      "port": 8080
+    },
+    {
+      "target_id": "mysql_5.7",
+      "product": "MySQL",
+      "vendor": "Oracle",
+      "version": "5.7.42",
+      "cpe": "cpe:2.3:a:oracle:mysql:5.7.42:*:*:*:*:*:*:*",
+      "known_cves": ["CVE-2023-21980", "CVE-2023-21977", "CVE-2023-21976"],
+      "service": "mysql",
+      "port": 3306
+    },
+    {
+      "target_id": "redis_6.0",
+      "product": "Redis",
+      "vendor": "Redis Ltd",
+      "version": "6.0.16",
+      "cpe": "cpe:2.3:a:redis:redis:6.0.16:*:*:*:*:*:*:*",
+      "known_cves": ["CVE-2022-24735", "CVE-2022-24736", "CVE-2021-32625"],
+      "service": "redis",
+      "port": 6379
+    }
+  ]
+}

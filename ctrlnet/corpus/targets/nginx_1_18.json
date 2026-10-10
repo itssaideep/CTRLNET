@@ -1,0 +1,14 @@
+{
+    "target_id": "nginx_1_18",
+    "service": "http",
+    "port": 80,
+    "product": "nginx",
+    "vendor": "f5",
+    "version": "1.18.0",
+    "cpe": "cpe:2.3:a:f5:nginx:1.18.0:*:*:*:*:*:*:*",
+    "known_cves": [
+        "CVE-2021-23017"
+    ],
+    "base_banner": "nginx/1.18.0 (Ubuntu)",
+    "os_hint": "Linux"
+}

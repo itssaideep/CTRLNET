@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTRLNET Profiler</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="brand">CTRLNET<span style="font-weight:300; font-size:12px; color:var(--text-muted); margin-left:10px;">AUTHORIZED SECURITY RESEARCH ONLY</span></div>
+        <div class="controls">
+            <input type="text" id="target-input" placeholder="Target IP (e.g. 192.168.1.1)" value="127.0.0.1">
+            <select id="model-select">
+                <option value="llama3.1:8b">Llama 3.1 8B</option>
+                <option value="qwen2.5:7b">Qwen 2.5 7B</option>
+            </select>
+            <button id="scan-btn">Initiate Profiler</button>
+        </div>
+    </header>
+
+    <main>
+        <div id="graph-container"></div>
+        <div id="terminal">
+            <div class="log-entry"><span class="log-time">[SYS]</span><span class="log-info">CTRLNET Interface Initialized. Waiting for input...</span></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="stat stat-confirmed">VERIFIED: <span class="stat-val" id="stat-verified">0</span></div>
+        <div class="stat stat-unverified">REJECTED: <span class="stat-val" id="stat-rejected">0</span></div>
+        <div class="stat stat-hallucinated">FAILED: <span class="stat-val" id="stat-failed">0</span></div>
+        <div class="stat stat-abstained">INSUFFICIENT: <span class="stat-val" id="stat-insufficient">0</span></div>
+    </footer>
+
+    <!-- Profiler Modal -->
+    <div id="profiler-modal">
+        <div class="modal-header">
+            <h2 style="color:var(--bg-color); text-shadow:none;">TARGET PROFILE</h2>
+            <button class="close-btn" onclick="document.getElementById('profiler-modal').style.display='none'">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="data-row"><span class="data-label">IP ADDRESS</span><span id="p-ip">---</span></div>
+            <div class="data-row"><span class="data-label">SERVICE</span><span id="p-service">---</span></div>
+            <div class="data-row"><span class="data-label">PORT</span><span id="p-port">---</span></div>
+            
+            <div class="section-title">AI INFERENCE</div>
+            <div class="data-row"><span class="data-label">PRODUCT</span><span id="p-product">---</span></div>
+            <div class="data-row"><span class="data-label">VERSION</span><span id="p-version">---</span></div>
+            <div class="data-row"><span class="data-label">CPE</span><span id="p-cpe" style="font-size:10px;">---</span></div>
+            <div class="data-row"><span class="data-label">CONFIDENCE</span><span id="p-confidence">---</span></div>
+
+            <div class="section-title">HYBRID VERIFICATION</div>
+            <div class="data-row"><span class="data-label">STATUS</span><span id="p-status" class="badge">---</span></div>
+            
+            <div class="section-title">EVIDENCE</div>
+            <div id="p-evidence" style="color:var(--secondary); font-size:11px; word-break:break-all;">---</div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "target_id": "redis_6.0",
+  "product": "Redis",
+  "vendor": "Redis Ltd",
+  "version": "6.0.16",
+  "cpe": "cpe:2.3:a:redis:redis:6.0.16:*:*:*:*:*:*:*",
+  "known_cves": ["CVE-2022-24735", "CVE-2022-24736", "CVE-2021-32625"],
+  "service": "redis",
+  "port": 6379,
+  "banner": "Redis key-value store 6.0.16"
+}

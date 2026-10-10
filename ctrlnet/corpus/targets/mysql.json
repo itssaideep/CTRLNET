@@ -1,0 +1,11 @@
+{
+  "target_id": "mysql_5.7",
+  "product": "MySQL",
+  "vendor": "Oracle",
+  "version": "5.7.42",
+  "cpe": "cpe:2.3:a:oracle:mysql:5.7.42:*:*:*:*:*:*:*",
+  "known_cves": ["CVE-2023-21980", "CVE-2023-21977", "CVE-2023-21976"],
+  "service": "mysql",
+  "port": 3306,
+  "banner": "5.7.42-0ubuntu0.18.04.1"
+}

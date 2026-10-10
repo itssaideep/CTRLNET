@@ -1,0 +1,11 @@
+{
+  "target_id": "nginx_1.18",
+  "product": "nginx",
+  "vendor": "F5 Networks",
+  "version": "1.18.0",
+  "cpe": "cpe:2.3:a:f5:nginx:1.18.0:*:*:*:*:*:*:*",
+  "known_cves": ["CVE-2021-23017", "CVE-2020-11724"],
+  "service": "http",
+  "port": 80,
+  "banner": "nginx/1.18.0 (Ubuntu)"
+}

@@ -1,0 +1,87 @@
+version: '3.8'
+
+services:
+  # --- OpenSSH Variants ---
+  # Note: Exact OpenSSH versions are OS-dependent. We use linuxserver/openssh-server as a baseline.
+  # For a rigorous experiment, these should be built from custom Dockerfiles (e.g., FROM ubuntu:20.04 for SSH 8.2).
+  openssh-target:
+    image: lscr.io/linuxserver/openssh-server:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - USER_NAME=test
+      - USER_PASSWORD=password
+    ports:
+      - "2222:2222"
+    networks:
+      - ctrlnet-lab
+
+  # --- NGINX Variants ---
+  nginx-1_18:
+    image: nginx:1.18-alpine
+    ports:
+      - "8018:80"
+    networks:
+      - ctrlnet-lab
+
+  nginx-1_25:
+    image: nginx:1.25-alpine
+    ports:
+      - "8025:80"
+    networks:
+      - ctrlnet-lab
+
+  # --- Apache HTTPD Variants ---
+  httpd-2_4_49:
+    # Known vulnerable version (CVE-2021-41773)
+    image: httpd:2.4.49-alpine
+    ports:
+      - "8049:80"
+    networks:
+      - ctrlnet-lab
+
+  httpd-2_4_57:
+    image: httpd:2.4.57-alpine
+    ports:
+      - "8057:80"
+    networks:
+      - ctrlnet-lab
+
+  # --- MySQL Variants ---
+  mysql-5_7:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+    ports:
+      - "3357:3306"
+    networks:
+      - ctrlnet-lab
+
+  mysql-8_0:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+    ports:
+      - "3380:3306"
+    networks:
+      - ctrlnet-lab
+
+  # --- Redis Variants ---
+  redis-6_0:
+    image: redis:6.0-alpine
+    ports:
+      - "6360:6379"
+    networks:
+      - ctrlnet-lab
+
+  redis-7_0:
+    image: redis:7.0-alpine
+    ports:
+      - "6370:6379"
+    networks:
+      - ctrlnet-lab
+
+networks:
+  ctrlnet-lab:
+    driver: bridge

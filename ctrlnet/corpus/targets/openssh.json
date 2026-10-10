@@ -1,0 +1,11 @@
+{
+  "target_id": "openssh_8.2",
+  "product": "OpenSSH",
+  "vendor": "OpenBSD",
+  "version": "8.2",
+  "cpe": "cpe:2.3:a:openbsd:openssh:8.2:*:*:*:*:*:*:*",
+  "known_cves": ["CVE-2020-15778", "CVE-2020-14145", "CVE-2021-28041", "CVE-2021-41617"],
+  "service": "ssh",
+  "port": 22,
+  "banner": "SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.5"
+}
